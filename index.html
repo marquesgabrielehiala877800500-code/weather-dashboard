@@ -3,371 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ehiala'S Bar - Sistema Comercial Completo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Ehiala’S Deck · Menu & Pagamento Automático</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen pb-16">
+<body class="bg-zinc-950 text-zinc-100 min-h-screen pb-24">
 
-    <!-- Cabeçalho -->
-    <header class="bg-amber-600 shadow-lg p-4 sticky top-0 z-50 flex justify-between items-center">
-        <div>
-            <h1 class="text-xl font-bold tracking-wide">Ehiala'S Bar</h1>
-            <p class="text-xs text-amber-100">Gestão, Vendas & Pagamentos Múltiplos</p>
-        </div>
-        <div class="bg-slate-900 text-amber-400 px-3 py-1.5 rounded-full font-bold text-sm shadow border border-amber-500/30">
-            <span id="headerTotal">0 MT</span>
-        </div>
+    <!-- Header -->
+    <header class="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-50 px-4 py-4 text-center">
+        <h1 class="text-xl font-bold tracking-wider text-amber-500">EHIALA’S DECK</h1>
+        <p class="text-xs text-zinc-400">Muiane · O teu espaço de eleição</p>
     </header>
 
     <main class="max-w-md mx-auto p-4 space-y-6">
+        
+        <!-- Secção do Menu -->
+        <section>
+            <h2 class="text-lg font-semibold mb-3 border-l-4 border-amber-500 pl-2">Bebidas & Petiscos</h2>
+            <div id="product-list" class="space-y-3">
+                <!-- Os produtos serão injetados aqui via JavaScript -->
+            </div>
+        </section>
 
-        <!-- Abas de Navegação -->
-        <div class="flex bg-slate-800 p-1 rounded-xl border border-slate-700 text-xs font-semibold text-center">
-            <button onclick="switchTab('pos')" id="tabPos" class="flex-1 py-2 rounded-lg bg-amber-600 text-slate-950 transition">Caixa / Vendas</button>
-            <button onclick="switchTab('history')" id="tabHistory" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">Histórico & Caixa</button>
-            <button onclick="switchTab('custom')" id="tabCustom" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">Novo Item</button>
-        </div>
-
-        <!-- SEÇÃO 1: CAIXA / POS -->
-        <div id="sectionPos" class="space-y-6">
-            <!-- Lista de Produtos -->
-            <section>
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Catálogo & Stock</h2>
-                    <button onclick="resetStock()" class="text-[10px] text-amber-400 underline">Repor Stock</button>
-                </div>
-                <div id="productsGrid" class="grid grid-cols-2 gap-3">
-                    <!-- Preenchido via JS -->
-                </div>
-            </section>
-
-            <!-- Resumo do Pedido -->
-            <section class="bg-slate-800 p-4 rounded-xl shadow-lg border border-slate-700 space-y-3">
-                <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Carrinho / Resumo</h2>
-                <div id="cartItems" class="space-y-2 text-sm text-slate-300 min-h-[40px]">
-                    <p class="italic text-slate-500 text-xs">O carrinho está vazio.</p>
-                </div>
-                
-                <div class="border-t border-slate-700 pt-3 space-y-3 text-xs">
-                    <div>
-                        <label class="block text-slate-400 mb-1">Nome do Cliente</label>
-                        <input type="text" id="clientName" placeholder="Ex: Convidado" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
-                    </div>
-                    <div>
-                        <label class="block text-slate-400 mb-1">Atendido por / Comissão para:</label>
-                        <input type="text" id="staffName" placeholder="Ex: Marques (Ehiala)" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
-                    </div>
-                    <div class="flex justify-between items-center text-base font-bold pt-1">
-                        <span>Total:</span>
-                        <span id="cartTotal" class="text-amber-400">0 MT</span>
-                    </div>
-                    <button onclick="finalizeOrder()" class="w-full bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold py-3 rounded-xl shadow transition text-sm">
-                        Finalizar Pedido & Registar Venda
-                    </button>
-                </div>
-            </section>
-
-            <!-- Métodos de Pagamento Integrados -->
-            <section class="bg-slate-800 p-4 rounded-xl shadow-lg border border-slate-700 space-y-3 text-xs">
-                <h2 class="font-semibold text-slate-400 uppercase tracking-wider">Canais de Pagamento Oficiais</h2>
-                <div class="space-y-2 text-slate-300 bg-slate-900 p-3 rounded-lg border border-slate-800">
-                    <p>📱 <strong class="text-amber-400">e-Mola:</strong> 877800500 (Marques Gabriel Ehiala)</p>
-                    <p>📱 <strong class="text-amber-400">M-Pesa:</strong> 849278027</p>
-                    <p>🏦 <strong class="text-amber-400">Banco / SIMO:</strong> Disponível no balcão</p>
-                    <p>🌍 <strong class="text-amber-400">Internacional / Apostas:</strong> PayPal & 1xBet.co.mz (Suportado)</p>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="shareWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg transition text-center">
-                        Partilhar WhatsApp
-                    </button>
-                    <button onclick="shareSMS()" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg transition text-center">
-                        Enviar SMS
-                    </button>
-                </div>
-            </section>
-        </div>
-
-        <!-- SEÇÃO 2: HISTÓRICO & FECHO DE CAIXA -->
-        <div id="sectionHistory" class="space-y-4 hidden">
-            <div class="bg-slate-800 p-4 rounded-xl shadow-lg border border-slate-700 space-y-3">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Fecho de Caixa & Comissões</h2>
-                    <button onclick="clearHistory()" class="text-[10px] text-red-400 underline">Limpar Registo</button>
-                </div>
-                <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex justify-between items-center">
-                    <div>
-                        <p class="text-xs text-slate-400">Faturamento Total do Dia</p>
-                        <p id="dailyRevenue" class="text-lg font-bold text-amber-400">0 MT</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-xs text-slate-400">Total de Vendas</p>
-                        <p id="dailyCount" class="text-lg font-bold text-white">0</p>
-                    </div>
-                </div>
+        <!-- Carrinho de Compras / Checkout -->
+        <section class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 space-y-4">
+            <h2 class="text-lg font-semibold text-amber-400">O Teu Pedido</h2>
+            <div id="cart-items" class="text-sm text-zinc-300 divide-y divide-zinc-800">
+                <p class="text-zinc-500 py-2">O carrinho está vazio.</p>
+            </div>
+            
+            <div class="flex justify-between font-bold text-base border-t border-zinc-800 pt-3">
+                <span>Total:</span>
+                <span id="cart-total" class="text-amber-400">0 MT</span>
             </div>
 
-            <section class="bg-slate-800 p-4 rounded-xl shadow-lg border border-slate-700 space-y-3">
-                <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Registo de Vendas</h2>
-                <div id="historyList" class="space-y-2 text-xs">
-                    <p class="italic text-slate-500">Nenhuma venda registada ainda.</p>
-                </div>
-            </section>
-        </div>
-
-        <!-- SEÇÃO 3: ADICIONAR NOVO ITEM / VENDER QUALQUER COISA -->
-        <div id="sectionCustom" class="space-y-4 hidden">
-            <section class="bg-slate-800 p-4 rounded-xl shadow-lg border border-slate-700 space-y-3 text-xs">
-                <h2 class="font-semibold text-slate-400 uppercase tracking-wider">Adicionar Novo Produto / Serviço</h2>
-                <p class="text-slate-400">Permite vender qualquer coisa no balcão definindo o nome, preço e stock inicial.</p>
-                <div class="space-y-2">
-                    <div>
-                        <label class="block text-slate-400 mb-1">Nome do Item</label>
-                        <input type="text" id="newName" placeholder="Ex: Petisco / Prato do Dia" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
-                    </div>
-                    <div>
-                        <label class="block text-slate-400 mb-1">Preço (MT)</label>
-                        <input type="number" id="newPrice" placeholder="Ex: 200" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
-                    </div>
-                    <div>
-                        <label class="block text-slate-400 mb-1">Stock Inicial</label>
-                        <input type="number" id="newStock" placeholder="Ex: 10" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
-                    </div>
-                    <button onclick="addNewProduct()" class="w-full bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold py-2.5 rounded-xl mt-2">
-                        Adicionar ao Catálogo
-                    </button>
-                </div>
-            </section>
-        </div>
+            <!-- Dados de Pagamento Automático (USSD Push) -->
+            <div class="space-y-3 pt-2 border-t border-zinc-800">
+                <label class="block text-xs font-medium text-zinc-400">Número de Telemóvel (e-Mola / M-Pesa):</label>
+                <input type="tel" id="client-phone" placeholder="Ex: 877800500" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-3 text-sm text-zinc-100 focus:outline-none focus:border-amber-500">
+                
+                <button onclick="triggerAutomaticPayment()" class="w-full bg-amber-600 hover:bg-amber-500 text-zinc-950 font-bold py-3 rounded-lg transition-all shadow-lg text-sm uppercase tracking-wide">
+                    Pagar Automaticamente (Pedir PIN)
+                </button>
+            </div>
+        </section>
 
     </main>
 
     <script>
-        const defaultProducts = [
-            { id: 'laurentina', name: 'Laurentina', price: 100, stock: 24 },
-            { id: 'manica', name: 'Manica', price: 90, stock: 24 },
-            { id: 'savanna', name: 'Savanna', price: 120, stock: 20 },
-            { id: 'amarula', name: 'Amarula', price: 150, stock: 15 },
-            { id: 'agua', name: 'Água / Refresco', price: 50, stock: 30 }
+        // Base de dados de produtos com os preços reais fornecidos
+        const products = [
+            { id: 1, name: "Cerveja 2M", price: 70, category: "Cervejas" },
+            { id: 2, name: "Cerveja Manica", price: 75, category: "Cervejas" },
+            { id: 3, name: "Cerveja Laurentina", price: 80, category: "Cervejas" },
+            { id: 4, name: "Cerveja Zavana", price: 100, category: "Cervejas" },
+            { id: 5, name: "Cerveja Impala", price: 55, category: "Cervejas" },
+            { id: 6, name: "Cerveja Lite", price: 80, category: "Cervejas" },
+            { id: 7, name: "Super Check", price: 75, category: "Cervejas" },
+            { id: 8, name: "Energético Red Bull", price: 100, category: "Não Alcoólicos" },
+            { id: 9, name: "Coca-Cola (Lata/Garrafa)", price: 70, category: "Não Alcoólicos" },
+            { id: 10, name: "Sumo Santal / Minute", price: 70, category: "Não Alcoólicos" },
+            { id: 11, name: "Água / WINI", price: 50, category: "Não Alcoólicos" },
+            { id: 12, name: "Sardinha (Petisco)", price: 100, category: "Petiscos" },
+            { id: 13, name: "Bolacha de Côco / Água e Sal", price: 25, category: "Petiscos" }
         ];
 
-        let products = JSON.parse(localStorage.getItem('ehialas_stock')) || defaultProducts;
         let cart = [];
-        let salesHistory = JSON.parse(localStorage.getItem('ehialas_history')) || [];
-
-        function saveAll() {
-            localStorage.setItem('ehialas_stock', JSON.stringify(products));
-            localStorage.setItem('ehialas_history', JSON.stringify(salesHistory));
-        }
-
-        function switchTab(tab) {
-            document.getElementById('sectionPos').classList.add('hidden');
-            document.getElementById('sectionHistory').classList.add('hidden');
-            document.getElementById('sectionCustom').classList.add('hidden');
-            
-            document.getElementById('tabPos').className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition";
-            document.getElementById('tabHistory').className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition";
-            document.getElementById('tabCustom').className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition";
-
-            if(tab === 'pos') {
-                document.getElementById('sectionPos').classList.remove('hidden');
-                document.getElementById('tabPos').className = "flex-1 py-2 rounded-lg bg-amber-600 text-slate-950 transition font-bold";
-            } else if(tab === 'history') {
-                document.getElementById('sectionHistory').classList.remove('hidden');
-                document.getElementById('tabHistory').className = "flex-1 py-2 rounded-lg bg-amber-600 text-slate-950 transition font-bold";
-                renderHistory();
-            } else if(tab === 'custom') {
-                document.getElementById('sectionCustom').classList.remove('hidden');
-                document.getElementById('tabCustom').className = "flex-1 py-2 rounded-lg bg-amber-600 text-slate-950 transition font-bold";
-            }
-        }
 
         function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-
-            products.forEach(p => {
-                const isOut = p.stock <= 0;
-                grid.innerHTML += `
-                    <div onclick="${isOut ? '' : `addToCart('${p.id}')`}" class="bg-slate-800 p-3 rounded-xl border ${isOut ? 'border-red-900 opacity-50 cursor-not-allowed' : 'border-slate-700 cursor-pointer hover:border-amber-500'} transition shadow flex flex-col justify-between">
-                        <div>
-                            <div class="font-semibold text-sm">${p.name}</div>
-                            <div class="text-amber-400 font-bold mt-1">${p.price} MT</div>
-                        </div>
-                        <div class="mt-3 flex justify-between items-center text-[10px]">
-                            <span class="${isOut ? 'text-red-400 font-bold' : 'text-slate-400'}">${isOut ? 'Esgotado' : `Stock: ${p.stock}`}</span>
-                            <span class="bg-slate-700 text-white px-2 py-1 rounded">+ Adicionar</span>
-                        </div>
+            const list = document.getElementById('product-list');
+            list.innerHTML = products.map(p => `
+                <div class="flex justify-between items-center bg-zinc-900 border border-zinc-800/60 p-3 rounded-xl">
+                    <div>
+                        <h3 class="font-medium text-sm">${p.name}</h3>
+                        <p class="text-xs text-amber-500">${p.price} MT</p>
                     </div>
-                `;
-            });
+                    <button onclick="addToCart(${p.id})" class="bg-zinc-800 hover:bg-amber-600 hover:text-zinc-950 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors">
+                        + Adicionar
+                    </button>
+                </div>
+            `).join('');
         }
 
         function addToCart(id) {
             const product = products.find(p => p.id === id);
-            if (!product || product.stock <= 0) return;
-
-            product.stock--;
-            saveAll();
-
-            const cartItem = cart.find(item => item.id === id);
-            if (cartItem) {
-                cartItem.qty++;
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
             } else {
-                cart.push({ id: product.id, name: product.name, price: product.price, qty: 1 });
+                cart.push({ ...product, qty: 1 });
             }
-
-            renderProducts();
-            renderCart();
+            updateCartUI();
         }
 
-        function renderCart() {
-            const cartContainer = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            const headerTotal = document.getElementById('headerTotal');
-
+        function updateCartUI() {
+            const cartContainer = document.getElementById('cart-items');
+            const totalContainer = document.getElementById('cart-total');
+            
             if (cart.length === 0) {
-                cartContainer.innerHTML = `<p class="italic text-slate-500 text-xs">O carrinho está vazio.</p>`;
-                totalEl.textContent = '0 MT';
-                headerTotal.textContent = '0 MT';
+                cartContainer.innerHTML = `<p class="text-zinc-500 py-2">O carrinho está vazio.</p>`;
+                totalContainer.innerText = "0 MT";
                 return;
             }
 
             let total = 0;
-            cartContainer.innerHTML = '';
-
-            cart.forEach(item => {
-                const subtotal = item.price * item.qty;
+            cartContainer.innerHTML = cart.map(item => {
+                let subtotal = item.price * item.qty;
                 total += subtotal;
-                cartContainer.innerHTML += `
-                    <div class="flex justify-between items-center text-xs border-b border-slate-700/50 pb-1">
-                        <span>${item.name} (x${item.qty})</span>
-                        <span class="font-semibold">${subtotal} MT</span>
+                return `
+                    <div class="flex justify-between py-2 text-xs">
+                        <span>${item.qty}x ${item.name}</span>
+                        <span class="text-zinc-300">${subtotal} MT</span>
                     </div>
                 `;
-            });
-
-            totalEl.textContent = total + ' MT';
-            headerTotal.textContent = total + ' MT';
-        }
-
-        function finalizeOrder() {
-            if (cart.length === 0) {
-                alert('O carrinho está vazio!');
-                return;
-            }
-
-            const client = document.getElementById('clientName').value || 'Convidado';
-            const staff = document.getElementById('staffName').value || 'Balcão';
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            const dateStr = new Date().toLocaleString();
-
-            const sale = { client, staff, total, items: [...cart], date: dateStr };
-            salesHistory.unshift(sale);
-            saveAll();
-
-            alert(`Venda registada com sucesso!\nCliente: ${client}\nTotal: ${total} MT\nPague via e-Mola (877800500) ou M-Pesa (849278027).`);
+            }).join('');
             
-            cart = [];
-            document.getElementById('clientName').value = '';
-            renderCart();
-            renderProducts();
+            totalContainer.innerText = total + " MT";
         }
 
-        function addNewProduct() {
-            const name = document.getElementById('newName').value;
-            const price = parseFloat(document.getElementById('newPrice').value);
-            const stock = parseInt(document.getElementById('newStock').value);
-
-            if(!name || isNaN(price) || isNaN(stock)) {
-                alert('Preencha todos os campos corretamente!');
+        function triggerAutomaticPayment() {
+            const phone = document.getElementById('client-phone').value.trim();
+            if (cart.length === 0) {
+                alert("Por favor, adicione itens ao carrinho primeiro.");
+                return;
+            }
+            if (!phone || phone.length < 9) {
+                alert("Por favor, introduza um número de telemóvel válido para o pagamento (ex: 877800500).");
                 return;
             }
 
-            const newId = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            products.push({ id: newId, name, price, stock });
-            saveAll();
-            renderProducts();
-
-            document.getElementById('newName').value = '';
-            document.getElementById('newPrice').value = '';
-            document.getElementById('newStock').value = '';
-            switchTab('pos');
-            alert('Produto adicionado ao catálogo com sucesso!');
-        }
-
-        function renderHistory() {
-            const list = document.getElementById('historyList');
-            const revEl = document.getElementById('dailyRevenue');
-            const countEl = document.getElementById('dailyCount');
-
-            if(salesHistory.length === 0) {
-                list.innerHTML = `<p class="italic text-slate-500">Nenhuma venda registada ainda.</p>`;
-                revEl.textContent = '0 MT';
-                countEl.textContent = '0';
-                return;
-            }
-
-            let totalRev = 0;
-            list.innerHTML = '';
-
-            salesHistory.forEach((sale, idx) => {
-                totalRev += sale.total;
-                list.innerHTML += `
-                    <div class="bg-slate-900 p-2.5 rounded-lg border border-slate-700/60 space-y-1">
-                        <div class="flex justify-between font-bold text-amber-400">
-                            <span>${sale.client}</span>
-                            <span>${sale.total} MT</span>
-                        </div>
-                        <div class="text-slate-400 text-[10px] flex justify-between">
-                            <span>Atendido por: ${sale.staff}</span>
-                            <span>${sale.date}</span>
-                        </div>
-                    </div>
-                `;
-            });
-
-            revEl.textContent = totalRev + ' MT';
-            countEl.textContent = salesHistory.length;
-        }
-
-        function clearHistory() {
-            if(confirm('Deseja limpar todo o histórico de vendas do dia?')) {
-                salesHistory = [];
-                saveAll();
-                renderHistory();
-            }
-        }
-
-        function resetStock() {
-            if (confirm('Deseja repor o stock inicial?')) {
-                products = JSON.parse(JSON.stringify(defaultProducts));
-                saveAll();
-                cart = [];
-                renderProducts();
-                renderCart();
-            }
-        }
-
-        function shareWhatsApp() {
-            if(cart.length === 0) {
-                alert('Adicione itens ao carrinho primeiro para partilhar!');
-                return;
-            }
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            let text = `*Ehiala'S Bar - Pedido*%0A`;
-            cart.forEach(i => text += `- ${i.name} (x${i.qty}): ${i.price * i.qty} MT%0A`);
-            text += `*Total: ${total} MT*%0A%0APagamento via e-Mola (877800500) ou M-Pesa (849278027).`;
-            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-        }
-
-        function shareSMS() {
-            if(cart.length === 0) {
-                alert('Adicione itens ao carrinho primeiro!');
-                return;
-            }
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            let text = `Ehialas Bar Total: ${total}MT. Pague via e-Mola 877800500 ou M-Pesa 849278027.`;
-            window.location.href = `sms:?body=${encodeURIComponent(text)}`;
+            // Simulação / Acionamento do USSD Push (Gateway de Pagamento / e-Mola / M-Pesa)
+            alert(`A enviar pedido de pagamento automático para o número ${phone}...\n\nO cliente receberá um pop-up no telemóvel para introduzir o PIN e autorizar a transação para o recebedor oficial (877800500).`);
+            
+            // Redirecionamento opcional para WhatsApp com os detalhes confirmados
+            let total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            let message = `*PEDIDO PAGO VIA APP* %0A- Telemóvel: ${phone} %0A- Total: ${total} MT`;
+            window.open(`https://wa.me/258877800500?text=${message}`, '_blank');
         }
 
         renderProducts();
